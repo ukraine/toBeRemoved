@@ -1,0 +1,36 @@
+<table width="80%" border="0" cellspacing="0" cellpadding="0">
+	<tr class="zagolovorV2"> 
+		<td width="12%"><?php echo $translation['67'];?></td>
+		<td width="8%"><?php echo $translation['IPaddress'];?></td>
+		<td width="80%"><?php echo $translation['name_and_description_of_an_action'];?></td>
+	</tr>  
+<?php
+
+$actions = array('',"Добавлен","Изменен","Удален","Выполнен вход в систему");
+
+for ($i=0; $i < mysql_num_rows($res); $i++)
+	
+	{
+	
+	$f = mysql_fetch_array($res);
+
+	echo "
+	<tr>
+		<td class='columns1' id='center'>$f[date]</td>
+		<td class='columns1' id='center'>$f[ip]</td>
+		<td class='columns1'><B>"; echo $actions[$f['actionID']]; 
+		
+		if ($f['actionID']!="4") { echo "</B> объект <B>$f[objectID]</B> в разделе &quot;<B>"; echo $SectionNames[$f['sectionID']]; echo "</B>&quot;"; }
+		
+		echo "<div style='font-size: 80%;'>дамп запроса: <I style='color: #999;'>"; echo substr($f['sqlquery'],0,128) . "...</I></div>
+		
+		</td>
+	</tr>";
+
+	}
+
+?>
+</table>
+<pre style="width: 900px !important;">
+<? // echo file_get_contents(LOGFILE); ?>
+</pre>

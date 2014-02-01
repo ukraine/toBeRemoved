@@ -1,0 +1,12 @@
+<form method="post" action="">
+ 
+		<h3 id="first"><?php echo $translation['74'];?>:</h3> 
+		
+		<?php GenerateInputTag("login", $translation['75']); ?>
+		<?php GenerateInputTag("password", $translation['76'],"password"); ?>
+
+			<br><input type="hidden" value="do_edit" name="action">
+			<input type="hidden" value="1" name="id">
+			<input type="submit" name="Submit" value="<?php echo $translation['73'];?>">
+			<br> &nbsp;  &nbsp;  &nbsp; <?php echo $translation['77'];?><br>
+</form>

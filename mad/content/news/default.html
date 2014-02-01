@@ -1,0 +1,47 @@
+<form action="" method="post">
+  <table width="80%" border="0" cellspacing="0" cellpadding="0">
+  <tr class="zagolovorV2"> 
+    <td width="4%"  rowspan=2 style='text-align:center;'><input type="checkbox" style="width:auto;" onClick="setCheckboxesByType(this.checked)"></td>
+	<td width="11%" rowspan=2><?php echo $translation['67'];?></td>
+	<td width="43%" rowspan=2><?php echo $translation['63'];?></td>
+	<td width="8%" rowspan=2><?php echo $translation['28'];?></td>
+	<td width="8%" rowspan=2><?php echo $translation['29'];?></td>
+	<td width="20%" colspan=2 id="finita"><?php echo $translation['30'];?></td>
+  </tr>  
+
+  <tr class="zagolovorV2">
+    <td width="10%" id="fin"><?php echo $translation['31'];?></td>
+    <td width="10%" id="fin"><?php echo $translation['32'];?></td>
+  </tr>
+
+
+<?php
+
+for ($i=0; $i < mysql_num_rows($res); $i++)
+	
+	{
+
+	$number = $i+$startobject;
+	$pair=" class='pair'";
+	if ($number%2 !== 0) $pair="";
+	
+	$f = mysql_fetch_array($res);
+
+	$content = limitVisiblePart('content',48);
+
+	echo "<tr$pair>\n<td class='columns1' id='center'><input type='checkbox' name='id[$i]' value='$f[id]' style='width:auto;'></td>" .
+	"\n<td class='columns1'>" . $f['timestamp'] . "</td>" .
+	"\n<td class='columns1' style='text-align:left;'><B>$f[title]</B><br>$content</td>" .
+	"\n\t<td class='columns1' id='center'>"; include "inc/priority.html"; echo "</td>" .
+	"\n\t<td class='columns1' id='center'>"; include "inc/visibility.html"; echo "</td>" .
+	"\n<td class='columns1'><a href='edit/$f[id]" . MOREQUERIES . "' class='edit'>$translation[31]</a></td>" .
+	"\n<td class='columns1'><a href='delete/$f[id]" . MOREQUERIES . "' class='delete' onclick='return confirmDelete()'>$translation[32]</a></td>" .
+
+	"</tr>";
+	}
+
+?>
+</table>
+<input type="hidden" name="action" value="multiple_delete">
+<input type="submit" value="<?php echo $translation['148'];?>" class="auto">	
+</form>

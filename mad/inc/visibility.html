@@ -1,0 +1,5 @@
+<select name='visibility' id="visibilityselect<?php echo $f['id']; ?>" onChange="ChangeValue('visibility',this.value,'<?php echo $f['id']; ?>','<?php echo $section; ?>')">
+	<option value='y' <?php select('visibility', 'y'); ?>><?php echo $translation['24'];?></option>
+	<option value='n' <?php select('visibility', 'n'); ?>><?php echo $translation['25'];?></option>
+	<option value='d' <?php select('visibility', 'd'); ?>><?php echo $translation['26'];?></option>
+</select>

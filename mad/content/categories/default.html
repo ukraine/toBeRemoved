@@ -1,0 +1,56 @@
+<form action="" method="post">
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr class="zagolovorV2"> 
+			<td width="4%" rowspan=2 style='text-align:center;'><input type="checkbox" style="width:auto;" onClick="setCheckboxesByType(this.checked)"></td>
+			<td width="54%" rowspan=2><?php echo $translation['27'];?></td>
+			<td width="10%" rowspan=2><?php echo $translation['28'];?></td>
+			<td width="10%" rowspan=2><?php echo $translation['29'];?></td>
+			<td width="20%" colspan=2 id="finita"><?php echo $translation['30'];?></td>
+		</tr>  
+		<tr class="zagolovorV2">
+			<td width="10%"><?php echo $translation['31'];?></td>
+			<td width="10%" id="fin"><?php echo $translation['32'];?></td>
+		</tr>
+<?php
+
+// echo mysql_num_rows($res);
+
+for ($i=0; $i < mysql_num_rows($res); $i++)
+	
+	{
+
+	
+	$f = mysql_fetch_array($res);
+
+	$number = $i+$startobject;
+
+	echo "<tr>
+	
+	\n<td class='columns1' id='center'><input type='checkbox' name='id[$i]' value='$f[id]' style='width:auto;'></td>
+	<td class='columns1'>$f[cat_name]<div class='url'><a href='/$f[cat_path]/' title='$translation[147]'>/$f[cat_path]/</a>&nbsp;<a href='/$f[cat_path]/' target='_blank'><img src='/mad/img/icons/popup.gif' border='0' title='$translation[33]' alt='$translation[33]'></a></div></td>
+	<td class='columns1' id='center'>"; include "inc/priority.html"; echo "</td>
+	<td class='columns1' id='center'>"; include "inc/visibility.html"; echo "</td>
+	<td class='columns1'><a href='edit/$f[id]" . MOREQUERIES . "' class='edit'>$translation[31]</a></td>
+	<td class='columns1'>";
+	
+	if ($_GET['servicepage'] == "0") echo
+		
+		"<a href='delete/$f[id]" . MOREQUERIES . "' class='delete' onclick='return confirmDelete()'>$translation[32]</a>";
+		else echo "<div style='font-size:80%; text-align:center; color: #666;' title='Удалять запрещено'>служебная <BR>страница</div>";
+		
+	echo "</td>\n</tr>";
+
+	}
+
+?>
+	</table>
+
+	<!-- Показывать кнопку удаления, если мы в неслужебных  -->
+	<? if ($_GET['servicepage'] == "0") { ?>
+
+	<input type="hidden" name="action" value="multiple_delete">
+	<input type="submit" value="<?php echo $translation['148'];?>" class="auto">
+	
+<? } ?>
+
+</form>

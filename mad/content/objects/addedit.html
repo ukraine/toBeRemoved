@@ -1,0 +1,155 @@
+<? /*
+
+// Unused
+		
+echo "<h3>$translation[34]</h3>";
+
+GenerateInputTag("name",$translation['27']); 
+GenerateInputTag("description",$translation['55']);
+GenerateSelectListStatic($Priceper,"priceper","Выберите период оплаты");
+
+*/
+
+$regionsDivVisibility = array("region" => array("", "none"), "city"=> array("none", ""));
+$regionsFieldsDisabled = array("region" => array("disabled", ""), "city"=> array("", "disabled"));
+
+$ShowPodmoskovie = $ShowMoscow = $ShowMoscowField = $ShowPodmoskovieField = "0";
+
+$ShowPodmoskovie		= @$regionsDivVisibility['region'][$f['region']];
+$ShowMoscow				= @$regionsDivVisibility['city'][$f['region']];
+
+$ShowPodmoskovieField	= @$regionsFieldsDisabled['region'][$f['region']];
+$ShowMoscowField		= @$regionsFieldsDisabled['city'][$f['region']];
+
+if (is_null($ShowPodmoskovie) && is_null($ShowMoscow)) { $ShowMoscow = "none";  $ShowPodmoskovie = ""; }
+if (is_null($ShowPodmoskovie) && is_null($ShowMoscow)) { $ShowMoscowField = "disabled";  $ShowPodmoskovieField = ""; }
+
+
+?>
+
+<form method='post' action='' enctype='multipart/form-data'>
+
+<TABLE width="100%">
+<tr>
+	<td colspan='2'><h3 id='first'>Информация о недвижимости</h3></td>
+</tr>
+<TR>
+	<TD width="50%" valign="top">
+		
+		<? 
+
+		echo "<h4>Основные данные</h4>";
+
+		GenerateInputTag("name","Название объекта");			
+		GenerateSelectListStatic($dealTypes,"dealtype", "Тип сделки", $separator=" &nbsp; ",$br="<br>", $js="");
+		GenerateSelectListStatic($commissionTypes,"commissionType", "Комиссия", $separator=" &nbsp; ",$br="<br>", $js="");
+		
+		echo "<h4>$translation[55]</h4>"; 
+		GenerateTextAreaTag("advcontent"); 
+		
+		?>
+
+	</TD>
+	<TD valign="top">
+
+		<h4>Площадь, цена, класс и тип </h4>
+
+		<? 
+		GenerateInputTag("price","Цена в условных единицах за кв.м");
+
+		GenerateInputTag("totalarea","Общая площадь, кв.м");
+
+		GenerateSelectListStatic($BuildingClassTypes[$_GET['parent_id']],"realestateClass", "Класс", $separator=" &nbsp; ",$br="<br>", $js="");
+		GenerateSelectListStatic($AreaTypes[$_GET['parent_id']],"areaType", "Категория площади", $separator=" &nbsp; ",$br="<br>", $js="");
+
+		switch($parent_id) {
+
+        default: break;
+        case "1": 	GenerateCheckBox($ObjectOfficeCenter,"","","style='width:auto;'"); break;
+        case "2": 	GenerateCheckBox($ObjectWarehouse,"","","style='width:auto;'"); break;
+
+		};
+
+		?>
+
+		<h4>Контактные данные брокера</h4>
+
+		<? 
+		GenerateInputTag("brokerName","ФИО брокера");
+		GenerateInputTag("brokerContact","Телефон брокера");
+		?>
+
+		<h4>Местоположение</h4>
+
+		&nbsp; &nbsp; &nbsp; Выберите регион:<BR><BR>
+					<div class="radio">
+
+							<input type="radio" name="region"  onclick="toggle_visibility('moscowcity'); toggle_visibility('moscowregion');"
+							value="1" id="r1"<?php radiobox('region', 1); ?>><label for="r1"> &#151; Москва &nbsp; </label><br>				
+							<input type="radio" name="region" onclick="toggle_visibility('moscowregion'); toggle_visibility('moscowcity');"
+							value="0" id="r0"<?php radiobox('region', 0); ?>><label for="r0"> &#151; Подмосковье &nbsp; </label>
+
+					</div>
+		<BR><BR>
+
+		<div id='moscowregion' style="display:<? echo $ShowPodmoskovie; ?>">
+			<? GenerateInputTag("metro","Если Подмосковье - укажите город","","","",$ShowMoscowField); ?>
+			<? GenerateSelectListStatic($regionDistricts,"district", "Выберите направление", $separator=" &nbsp; ",$br="<br>", $ShowMoscowField) ?>
+
+		</div>
+
+		<div id='moscowcity' style="display:<? echo $ShowMoscow; ?>">
+		<? GenerateSelectListStatic($districts,"district", "Административный округ", $separator=" &nbsp; ",$br="<br>", $ShowPodmoskovieField) ?>
+
+		<BR>&nbsp; &nbsp; &nbsp; Выберите станцию метро:<BR>
+		<? include ("content/metro-cache.html"); ?>
+		</div>
+
+
+	
+	</TD>
+</TR>
+</TABLE>
+	
+	<h4><? echo $translation['pictures']; ?></h4>
+
+			<div style="padding: 0 0 5px 19px;" class="imageset">
+				<? $var = getAttachedFiles($f['id']); 
+				// print_r($var);
+				?>
+			</div>
+
+	<div clear="all" style="clear:both;"><br><br></div>
+
+	<div id="uploadsourceform"><input type="file" name="uploadfile[1][1]"></div>
+	<div id="uploadsourceform"><input type="file" name="uploadfile[1][2]"></div>
+	<div id="uploadsourceform"><input type="file" name="uploadfile[1][3]"></div>
+	<div id="uploadsourceform"><input type="file" name="uploadfile[1][4]"></div>
+	<div id="uploadsourceform"><input type="file" name="uploadfile[1][5]"></div>
+
+			<br>&nbsp; &nbsp; &nbsp; Простановка водяного знака: <br><br>
+			
+			<div class="radio">
+
+					<input type="radio" name="watermark" value="1" id="w1"<?php radiobox('watermark', 1); ?>><label for="w1"> &#151; Да &nbsp; </label>				
+					<input type="radio" name="watermark" value="0" id="w0"<?php radiobox('watermark', 0); ?>><label for="w0"> &#151; Нет &nbsp; </label>
+
+			</div>
+
+<h3>Служебные параметры</h3>
+
+<?
+
+	GenerateCheckBox($AdvertiseOnTheLeft,"","","style='width:auto;'");
+
+	GenerateInputTag("parent_id","","hidden","","&nbsp;");
+	GenerateInputTag("level","","hidden","","&nbsp;");
+	GenerateInputTag("advertise","","hidden","","&nbsp;");
+	GenerateInputTag("objecttype","","hidden","","&nbsp;");
+
+	include "inc/priority-visibility.html";
+	include "inc/formend.html";		
+
+	echo "</form>";
+
+?>

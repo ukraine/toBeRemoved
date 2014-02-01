@@ -1,0 +1,26 @@
+<table id="view_table">
+								<tr>
+									<td id="view_date"><div id="view_back"><a href="#">← Вернуться к списку новостей</a></div><span class="date"><? echo $page['timestamp']; ?></span></td>
+									<!-- Автор -->
+									<td id="view_author">
+										<img src="i/author.gif" width="50" height="58" title="" alt="" />
+										<div>
+											<label class="descr">Автор статьи:</label>
+											Арсеньев А. В.
+											Директор партийного
+											собрания
+										</div>
+									</td>
+									<!-- /Автор -->
+								</tr>
+								<tr>
+									<!-- Новость -->
+									<td id="view_news" colspan="2">
+										<h1><? if (!empty($page['title'])) echo "<h1><span>$page[title]</span></h1>"; ?></h1>
+										<div>
+											<? echo $page['content']; ?>
+										</div>
+									</td>
+									<!-- /Новость -->
+								</tr>
+							</table>

@@ -1,0 +1,55 @@
+<div><?php echo $translation['152'];?>: <B> <?php if (defined(PREFIX)) echo PREFIX; else echo $translation['noprefix']; ?></B></div>
+
+
+<div >
+
+<br>
+
+<table style="width: 785px !important;" border="0" cellspacing="00" cellpadding="12" class="hint">
+ <tr>
+ <th colspan='2'>Образцы запросов: </th>
+ </tr>
+  
+  <tr> 
+    <td style="width: 271px;">изменение структуры таблицы</td>
+    <td><span class='javascriptlink' onclick="ChangeValueOfFormElement(this.innerHTML)">ALTER TABLE `pages` ADD `service_parent_id`  INT( 3 ) NOT NULL AFTER `cat_id`</span></td>
+  </tr>
+  <tr> 
+    <td>вставка строки в таблицу</td>
+    <td><span class='javascriptlink' onclick="ChangeValueOfFormElement(this.innerHTML)">INSERT INTO `table` (id,name) VALUES (1,"ivanopulo");</span></td>
+  </tr>
+  <tr> 
+    <td>очистка таблицы</td>
+    <td><span class='javascriptlink' onclick="ChangeValueOfFormElement(this.innerHTML)">TRUNCATE TABLE `table`;</span></td>
+  </tr>
+  <tr>
+    <td>изменение структуры поля таблицы</td>
+    <td><span class='javascriptlink' onclick="ChangeValueOfFormElement(this.innerHTML)">ALTER TABLE `pages` CHANGE `page_name` `page_name` VARCHAR( 128 );</span></td>
+  </tr>
+  <tr>
+    <td>изменение значений конкретного поля таблицы</td>
+    <td><span class='javascriptlink' onclick="ChangeValueOfFormElement(this.innerHTML)">UPDATE `pages` SET `servicepage` = '0' WHERE `id` = '1';</span></td>
+  </tr>
+
+  <tr>
+    <td>удаление конкретных колонок в таблице</td>
+    <td><span class='javascriptlink' onclick="ChangeValueOfFormElement(this.innerHTML)">ALTER TABLE `pages`  DROP `priority`,  DROP `visibility`;</span></td>
+  </tr>
+
+ <tr>
+ <td colspan='2'>&nbsp;</td>
+ </tr>
+
+</table>
+
+
+
+</div>
+
+
+<br>
+<form method="post" action="" name="form">
+<?php GenerateTextAreaTag("sql"); ?>
+<BR><input type="submit" value="<?php echo $translation['136'];?>">
+<input type="hidden" value="do_runquery" name="action">
+</form>

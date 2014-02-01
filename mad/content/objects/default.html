@@ -1,0 +1,76 @@
+<form action="" method="post">
+  <table width="80%" border="0" cellspacing="0" cellpadding="0">
+  <tr class="zagolovorV2"> 
+    <td width="4%"  rowspan=2 style='text-align:center;'><input type="checkbox" style="width:auto;" onClick="setCheckboxesByType(this.checked)"></td>
+	<td width="70%" rowspan=2><?php echo $translation['name_and_description_of_an_object'];?></td>
+	<td width="73px" rowspan=2><?php echo $translation['28'];?></td>
+	<td width="73px" rowspan=2><?php echo $translation['29'];?></td>
+	<td width="146px" colspan=2 id="finita"><?php echo $translation['30'];?></td>
+  </tr>  
+
+  <tr class="zagolovorV2">
+    <td width="73px" id="fin"><?php echo $translation['31'];?></td>
+    <td width="73px" id="fin"><?php echo $translation['32'];?></td>
+  </tr>
+
+
+<?php
+
+for ($i=0; $i < mysql_num_rows($res); $i++)
+	
+	{
+
+	$number = $i+$startobject;
+	
+	$f = mysql_fetch_array($res);
+
+	$content = limitVisiblePart('description',48);
+	$title = limitVisiblePart('name',48);
+
+	$ahref = $ahrefend = "";
+	if ($f['parent_id']=="-1") { $ahref = "<a href='?parent_id=$f[id]&level=$f[level]' style='text-decoration: underline;'>"; $ahrefend = "</a>"; }
+
+	echo "<tr>\n<td class='columns1' id='center'><input type='checkbox' name='id[$i]' value='$f[id]' style='width:auto;'></td>" .
+	"\n<td class='columns1' style='text-align:left;'>
+	<B>$ahref{$title}$ahrefend</a></B>
+	<div>$content</div>
+	
+		<div class='url'><a href='$siteurl../catalogue/$f[id]/' title='$translation[147]'>/catalogue/$f[id]/</a>&nbsp;
+			<a href='$siteurl../catalogue/$f[id]/' target='_blank'><img src='/mad/img/icons/popup.gif' border='0' title='$translation[33]'></a>
+		</div>
+
+	</td>" .
+	"\n\t<td class='columns1' id='center'>"; include "inc/priority.html"; echo "</td>" .
+	"\n\t<td class='columns1' id='center'>"; include "inc/visibility.html"; echo "</td>" .
+	"\n<td class='columns1'>";
+	
+	if ($f['servicepage'] == "0") echo
+	
+	"<a href='edit/$f[id]" . MOREQUERIES . "' class='edit'>$translation[31]</a>";
+	else echo "<div style='font-size:80%; text-align:center; color: #666;' title='Удалять запрещено'>$translation[servicePage]</div>";
+	
+	echo "</td>\n<td class='columns1'>";
+
+	if ($f['servicepage'] == "0") echo
+	
+	
+	"<a href='delete/$f[id]" . MOREQUERIES . "' class='delete' onclick='return confirmDelete()'>$translation[32]</a>";
+	else echo "<div style='font-size:80%; text-align:center; color: #666;' title='Удалять запрещено'>$translation[servicePage]</div>";
+	
+	
+	echo "</td>\n</tr>";
+
+	}
+
+?>
+</table>
+
+	<!-- Показывать кнопку удаления, если мы в неслужебных  -->
+	<? if ($_GET['parent_id'] != "-1") { ?>
+
+<input type="hidden" name="action" value="multiple_delete">
+<input type="submit" value="<?php echo $translation['148'];?>" class="auto">
+
+	<? } ?>
+
+</form>

@@ -1,0 +1,56 @@
+<form method="post" action="">
+        
+			<h3 id="first"><?php echo $translation['34'];?>:</h3>
+			<?php GenerateInputTag("title",$translation['62']); ?>
+			<?php GenerateInputTag("timestamp",$translation['timestamp']); ?> 
+			<div style="padding-left: 17px;"><span id="InnerLink" onclick="insertCurrDate('<?=date("Y-m-d h:m:s")?>')">Нажмите здесь, чтобы вставить текущую дату</span></div>
+
+		<h3><?=$translation['59'];?>:</h3>
+
+			<?php 
+
+			switch($textarea) {
+
+			default:
+			
+				include("../ckeditor/ckeditor.php");
+				$CKEditor = new CKEditor();
+				$CKEditor->returnOutput = true;
+				$CKEditor->basePath = '/ckeditor/';
+				$CKEditor->config['width'] = 800;
+				$CKEditor->textareaAttributes = array("cols" => 80, "rows" => 10);
+				$initialValue = $f['content'];
+				$code = $CKEditor->editor("content", $initialValue);
+				echo $code;
+
+				break;
+
+			case "simple":
+
+				echo "<textarea name='content'>"; ifExistGetValue('content'); echo "</textarea>";
+				break;
+			
+			}
+
+			?>
+
+
+
+<!-- 		<h3><?php echo $translation['64'];?>:</h3>
+			<select name='file_id' class="select"> 
+			<?php include "inc/image-select.html"; ?>
+			</select> &nbsp; <?php echo $translation['65'];?> (<a href="<?php echo $siteurl?>files/add/" target="_blank"><?php echo $translation['66'];?></a>) -->
+
+		<?php		include "inc/priority-visibility.html";
+				include "inc/formend.html";		
+		?>
+
+		<!-- <h3><?php echo $translation['117'];?>:</h3>
+
+			<select name='onthefirstpage' style="width: auto;">
+				<option value='1' <?php select('onthefirstpage', '1'); ?>><?php echo $translation['24'];?></option>
+				<option value='0' <?php select('onthefirstpage', '0'); ?>><?php echo $translation['25'];?></option>
+			</select><br> -->
+
+</form>
+

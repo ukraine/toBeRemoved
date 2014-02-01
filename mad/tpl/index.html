@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>madCMS</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="<? echo $siteurl; ?>img/_mad.css" type="text/css">
+<script language="javascript" type="text/javascript" src="<? echo $siteurl; ?>img/mm.js"></script>
+</head>
+
+<body>
+<div class="demover">
+<div id="loading"><?=$translation['142']?></div>
+
+	<a href='<?="$siteurl../'>$translation[0]"; ?></a><a href="<? echo $siteurl; ?>../" target="_blank" style="margin-left: 0px;"><img src='/mad/img/icons/popup.gif' border='0' title='<?=$translation[33]; ?>'></a>
+
+	<span>
+		<a href="<? echo $siteurl; ?>settings/"><?=$translation['2']?></a> &nbsp; &#149; &nbsp;
+		<a href="<? echo $siteurl; ?>developers/"><?=$translation['134']?></a> &nbsp; &#149; &nbsp;
+		<a href='<? echo $siteurl; ?>?do=logoff'><?=$translation['3']?></a>
+	</span>
+
+</div>
+
+<div class="header">
+		
+	<div class="main">
+		<a href="<? echo $siteurl; ?>" id="home"	<? if ($section =='default')	echo 'class=current';	?>><?=$translation['4']?></a>
+	</div>
+
+		<a href="<? echo $siteurl; ?>pages/?servicepage=0"		<? if ($section =='pages'|| $section =='categories')	echo 'class=current';	?>><?=$translation['5']?></a>
+		<a href="<? echo $siteurl; ?>news/"			<? if ($section =='news')								echo 'class=current';	?>><?=$translation['6']?></a>
+		<a href="<? echo $siteurl; ?>objects/?parent_id=-1"		<? if ($section =='objects')							echo 'class=current';	?>><?=$translation['catalogue']?></a>
+
+	<div class="subheader">
+		<?
+
+		// echo "$section/$action";
+
+		switch($section) {
+
+		default: 
+
+				generateSubHeaderUrl($section,'',$translation['10']);
+				generateSubHeaderUrl($section,'add',$translation['11'],'','addedit');
+
+			break;
+
+		case "default" :
+
+				generateSubHeaderUrl('default','default',$translation['8']);
+				generateSubHeaderUrl('default','about',$translation['9'],'','about');
+
+			break;
+
+		
+		case "categories" : case "pages" :
+			
+				generateSubHeaderUrl('pages','',$translation['5'],'?servicepage=0');
+				generateSubHeaderUrl('pages','add',$translation['13'],'','addedit');
+				generateSubHeaderUrl('categories','',$translation['14'],'?servicepage=0');
+				generateSubHeaderUrl('categories','add',$translation['15'],'','addedit');
+
+			break;
+
+		case "objects" :
+
+			break;
+
+		case "developers" :
+
+				generateSubHeaderUrl('developers','default',$translation['135']);
+				generateSubHeaderUrl('developers','history',$translation['history'],'','history');
+
+			break;
+
+		case "settings" :
+
+				generateSubHeaderUrl('settings','default',$translation['21']);
+				generateSubHeaderUrl('settings','login',$translation['22'],'','login');
+				// generateSubHeaderUrl('settings','backup',$translation['22'],'','backup');
+
+			break;
+		
+		}
+
+		?>
+	</div>
+
+</div>
+
+<? 
+if (@!include("../ckeditor/ckeditor.php")) $textarea = "simple"; 
+if (@$f['servicepage'] == "1") $textarea = "simple"; 
+?>
+
+<h2><? echo $title?></h2>
+<!-- /header -->
+
+<!-- Content -->
+<div class="content" id="<? echo $action; ?>">
+
+<!--
+	<table>
+	<tr>
+	<td width="200px" valign="top">
+
+		root
+
+	</td>
+	<td>
+-->
+
+	<?
+	errorMsg();
+	if ($action=="default" && $section!=="default" && $section!=="settings" && $section!=="developers") {
+
+		include "inc/filtering.html";
+
+		if (!empty($_GET['parent_id']) &&  $_GET['parent_id'] > 0) { ?>
+			<form method="GET" action="<? echo "{$siteurl}objects/add/"; ?>" class="additem">
+			<INPUT TYPE="submit" value="<? echo $translation['154'] ?>"  style="margin: 0;">
+			<INPUT TYPE="hidden" value="<? echo $_GET['parent_id'] ?>" name="parent_id">
+			<INPUT TYPE="hidden" value="<? echo $_GET['level']+1 ?>" name="level">
+			</form>
+		<? } 
+		
+		if ($count > 0) {
+			include "inc/paginator.html";			
+			include "content/$section/$action.html";
+		}
+		else echo "<div class='objectsnotfound'>Используя данный фильтр ничего не найдено. Попробуйте выбрать другой вариант фильтрации</div>";
+
+
+	}
+
+
+
+
+
+	else include "content/$section/$action.html";
+
+	// echo "$section/$action";
+
+	?>
+
+
+<!-- 	</td>
+	</tr>
+	</table> -->
+
+</div>
+<!-- Content -->
+
+<!-- footer -->
+<div class="footer">
+<span class="copyright"><?=$copyrights;?></span>
+</div>
+
+</body>
+</html>

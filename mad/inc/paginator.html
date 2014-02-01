@@ -1,0 +1,33 @@
+<table width="100%" class="paginator">
+	<tr>
+		<td width="33%">
+		<div><?php echo "$translation[144] <B>$startobject</B> $translation[145] <B>$endobject</B> $translation[146] <B>$count</B>"; ?></div></td>
+		<td width="33%"><?php 
+		
+	if ($section == "requests") { ?>
+
+	<?php } ?>
+		</td>
+		<td width="33%" align="right" class="paging">
+	<?php 
+
+
+	if ($totalpages > 1) {
+
+		for($i = 0; $i < $totalpages; $i++){
+			
+			$pagenumber = $i+1;
+
+			if($i == $page)	$paging .= "<span id='currentpage'>$pagenumber</span> "; 
+			else $paging .= "<a href='{$url}page=$i'>$pagenumber</a> "; 
+
+		}
+
+		echo "$translation[143]: " . $paging;
+
+	}
+
+	?>
+	</td>
+  </tr>
+</table>

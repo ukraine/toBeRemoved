@@ -1,0 +1,48 @@
+<html xml:lang="ru" xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="shortcut icon"  href="favicon.ico" type="image/x-icon"  />
+<title><? echo $page['title']?></title>
+<meta http-equiv="Content-Language" content="ru" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="robots" content="" />
+<meta name="copyright" content="" />
+<link type="text/css" rel="stylesheet" href="/templates/css/style.css" />
+<!--[if lte IE 6]>
+	<link type="text/css" rel="stylesheet" href="/templates/css/styleie.css" />
+	<script defer type="text/javascript" src="pngfix.js" mce_src="/templates/js/pngfix.js"></script>
+<![endif]-->
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="p404">
+	<!-- Шапка -->
+	<tr>
+		<td class="p404header" colspan="2"><div><a href="/"><img src="/i/logo.jpg" alt="" title="" width="236" height="38" /></a><br />
+				<span class="slogan">Сайт-каталог недвижимости.</span></div></td>
+	</tr>
+	<!-- /Шапка -->
+
+	<!-- Контент -->
+	<? echo $page['content']; ?>
+	<!-- /Контент -->
+
+	<!-- Низ -->
+	<!-- блок для низа -->
+	<tr>
+		<td colspan="2" class="forFooter">&nbsp;</td>
+	</tr>
+	<!-- /блок для низа -->
+</table>
+<div class="footer">
+	<div id="footer">
+		<div class="leftFooter p404f" align="center">
+			<p><? echo $Settings['sitename']; ?>  © 2010</p>
+			<? // echo str_replace($AllowedChars,$ForbiddenChars,$Settings['counters']); ?>
+			<a href="#">Схема проезда</a></div>
+	</div>
+</div>
+<!-- /Низ -->
+</body>
+</html>

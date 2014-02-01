@@ -1,0 +1,12 @@
+<form method="post" action="">
+	<h3 id="first"><?php echo $translation['78'];?>:</h3>
+	<input type="hidden" value="do_backup" name="action">
+	<input type="submit" name="Submit" value="<?php echo $translation['80'];?>">
+</form>
+<br>
+<form enctype="multipart/form-data" action="" method="POST">
+	<H3><?php echo $translation['79'];?>: </H3>
+	<input name="backupFile" type="file"><br>
+	<input type="hidden" name = "action" value = "do_restore">
+    <input type="submit" value="<?php echo $translation['81'];?>">
+</form>

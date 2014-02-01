@@ -1,0 +1,9 @@
+# Currently disabled
+User-agent: *
+Disallow: /
+
+# enabled
+# User-agent: *
+# Disallow:
+
+Sitemap: http://arenda-ofisa-i-sklada.ru/sitemap.xml 

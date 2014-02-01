@@ -1,0 +1,20 @@
+		<div class="pagetypes">
+		<B><?=$translation['filter']?>:</B> &nbsp; <?
+
+		if ($section=="pages" || $section=="categories") $servpage = "&servicepage=0";
+		
+		foreach($PagesTypes as $key=>$value) {
+
+			if ($visibility === $key && $servicepage!="1") echo "<span class='current'>$value</span>"; 
+			else echo "<a href='$siteurl$section/?visibility={$key}$servpage&parent_id=$parent_id'>$value</a>";
+
+		}
+
+		
+		echo " &nbsp; &nbsp; &nbsp; ";
+
+
+		if ($servicepage=="1")	echo "<span class='current'>$translation[servicepages]</span>";
+		elseif ($section!="news" && $section!="objects") echo "<a href='$siteurl$section/?servicepage=1'>$translation[servicepages]</a> ";
+		
+		?></div>

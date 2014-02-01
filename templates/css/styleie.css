@@ -1,0 +1,27 @@
+.main {
+width:expression(document.body.clientWidth > 1080 ? "100%" :"1080px");
+}
+#footer {
+width:expression(document.body.clientWidth > 1080 ? "100%" :"1080px");
+}
+ol {
+	margin:0 0 15px 30px;
+}
+.tab li {
+	margin:0 -30px 0 0;
+	position:relative;
+	left:-20px;
+}
+.tab li a.active {
+	background:none;
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='i/activeTab.png', sizingMethod='crop');
+	cursor:pointer;
+}
+.tab li.sides a.active {
+	background:none;
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='i/activeTabSides.png', sizingMethod='crop');
+}
+.p404header {
+	padding:0 0 0 330px;
+	height:142px;
+}

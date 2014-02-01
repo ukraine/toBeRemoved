@@ -1,0 +1,95 @@
+<form action="" method="post">
+<table width="80%" border="0" cellspacing="0" cellpadding="0">
+	<tr class="zagolovorV2">
+		<td width="4%" rowspan=2 style='text-align:center;'><input type="checkbox" style="width:auto;" onClick="setCheckboxesByType(this.checked)"></td>
+		<td width="4%" rowspan=2>id</td>
+		<td width="30%" rowspan=2><?=$translation['27'];?>, <?=strtolower($translation['41']);?></td>
+		<td width="32%" rowspan=2><?=$translation['42'];?></td>
+		<td width="12%"	rowspan=2><?=$translation['43'];?></td>
+		<td width="6%" rowspan=2><?=$translation['28'];?></td>
+		<td width="6%" rowspan=2><?=$translation['29'];?></td>
+		<td width="28%" colspan=2 id="finita"><?=$translation['30'];?></td>
+	</tr>  
+	<tr class="zagolovorV2">
+		<td width="7%" id="fin"><?=$translation['31'];?></td>
+		<td width="7%" id="fin"><?=$translation['32'];?></td>
+	</tr>
+
+
+<?
+
+for ($i=0; $i < mysql_num_rows($res); $i++)
+	
+	{
+
+	
+	$f = mysql_fetch_array($res);
+	$cat_id = $f['cat_id'];
+
+	GetCategory(&$cat_id);
+	GetCatName(&$cat_id);
+
+	$category = GetValueByIdV2 ("categories", "id",$cat_id,"cat_name").":";
+	if ($f['page_path'] == "default") $category="";
+
+	$content = limitVisiblePart('content',48);
+	$h1 = limitVisiblePart('h1',18);
+	$name = limitVisiblePart('page_name',24);
+
+	// Icon images
+	$keywords = "keywords";
+	$title = "title";
+	$description = "description";
+	$h1icon = "h1";
+
+	if (empty($f['keywords'])) $keywords .= "_non";
+	if (empty($f['title'])) $title .= "_non";
+	if (empty($f['description'])) $description .= "_non";
+	if (empty($f['h1'])) $h1icon .= "_non";
+	// Icon images
+
+	$number = $i+1;
+
+	echo
+	"\n<tr class='servicepage$f[servicepage]'><td class='columns1' id='center'><input type='checkbox' name='id[$i]' value='$f[id]' style='width:auto;'></td>
+	<td class='columns1' id='center'>$f[id]</td>
+	<td class='columns1'><span style='color: #999;'>$category</span> $name <div class='url'><a href='/$catPath/$f[page_path]/' title='$translation[147]'>/$catPath/$f[page_path]/</a>&nbsp;<a href='/$catPath/$f[page_path]/' target='_blank'><img src='/mad/img/icons/popup.gif' border='0' title='$translation[33]' alt='$translation[33]'></a></div></td>
+	<td class='columns1'>$content&nbsp;</td>
+	<td class='columns1' id='center'><img src='/mad/img/icons/$title.gif' border='0' title='&lt;title&gt;: $f[title]' alt='f[title]'> &nbsp; <img src='/mad/img/icons/$keywords.gif' border='0' title='Keywords $f[keywords]' alt='f[keywords]'> &nbsp; <img src='/mad/img/icons/$description.gif' border='0' title='Description: $f[description]' alt='f[description]'> &nbsp; <img src='/mad/img/icons/$h1icon.gif' border='0' title='h1: $h1' alt='f[h1]'></td>
+	\t<td class='columns1' id='center'>"; include "inc/priority.html"; echo "\t<span id='priority" . $f['id'] . "'></span></td>
+	\t<td class='columns1' id='center'>"; include "inc/visibility.html"; echo "\t<span id='visibility" . $f['id'] . "'></span></td>
+	<td class='columns1'><a href='edit/$f[id]" . MOREQUERIES . "' class='edit'>$translation[31]</a></td>
+	<td class='columns1'>";
+
+	if ($f['servicepage'] == "0") echo
+	
+	
+	"<a href='delete/$f[id]" . MOREQUERIES . "' class='delete' onclick='return confirmDelete()'>$translation[32]</a>";
+	else echo "<div style='font-size:80%; text-align:center; color: #666;' title='Удалять запрещено'>$translation[servicePage]</div>";
+	
+	
+	echo "</td>\n</tr>";
+
+	}
+
+?>
+</table>
+
+	<!-- Показывать кнопку удаления, если мы в неслужебных  -->
+	<? if ($_GET['servicepage'] == "0") { ?>
+
+<input type="hidden" name="action" value="multiple_delete">
+<input type="submit" value="<?=$translation['148'];?>" class="auto">
+
+	<? } ?>
+	<!-- Показывать кнопку удаления, если мы в неслужебных  -->
+
+</form>
+
+<div class="hint">
+	<B><?=$translation['47'];?></B>:
+	<img src='/mad/img/icons/title.gif' alt=''> &#151;   <?=$translation['44'];?> &nbsp; 
+	<img src='/mad/img/icons/keywords.gif' alt=''> &#151;   <?=$translation['45'];?>  &nbsp; 
+	<img src='/mad/img/icons/description.gif' alt=''> &#151;   <?=$translation['46'];?>  &nbsp; 
+	<img src='/mad/img/icons/popup.gif' alt=''> &#151;   <?=$translation['33'];?>
+</div>

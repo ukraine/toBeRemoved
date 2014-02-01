@@ -1,0 +1,53 @@
+<form method="post" action="">
+<?php if($res) $f = mysql_fetch_array($res);
+		
+		echo "<h3 id='first'>$translation[72]:</h3>";
+
+		GenerateInputTag("sitename",$translation['71']); 
+		GenerateInputTag("email",$translation['70']); 
+		GenerateInputTag("mail_address",$translation['69']); 
+		GenerateInputTag("phone",$translation['68']); 
+
+		echo "<h3>$translation[139]:</h3>";
+
+		GenerateInputTag("default_title",$translation['53']); 
+		GenerateInputTag("default_keywords",$translation['54']); 
+		GenerateInputTag("default_description",$translation['55']); 
+
+		echo "<br>";
+		// GenerateInputTag("allownewsonsitemap",$translation['167']);
+
+		GenerateInputTag("itemsPerPage",$translation['itemsPerPage']); 
+		GenerateInputTag("newsperpage",$translation['140']); 
+
+		/* 
+		GenerateInputTag("itemsontopmenu",$translation['158']); 
+		GenerateInputTag("itemsonbottommenu",$translation['159']);
+		GenerateInputTag("annouce",$translation['162']);
+		*/
+
+		echo "<br><h3>$translation[madSettings]:</h3>";
+
+		GenerateInputTag("itemsonpage",$translation['133']); 
+
+?>
+
+		<br><a href="javascript:void()" onClick="MassChangeValue('pages','timestamp','NOW()')" class="javascriptlink"><?=$translation['160']?></a><br>
+
+<?
+
+		echo "<h3>$translation[specialAnnouncement]:</h3>";
+
+		GenerateTextareaTag("specialAnnouncement");
+
+		echo "<h3>$translation[countersFieldDescription]:</h3>";
+
+		GenerateTextareaTag("counters");
+
+?>
+
+		<br><input type="hidden" value="do_edit" name="action">
+			<input type="hidden" value="1" name="id">
+			<input type="submit" name="Submit" value="<?php echo $translation['73'] ?>" class="sendrequest">
+</form>
+

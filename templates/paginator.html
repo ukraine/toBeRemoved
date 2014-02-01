@@ -1,0 +1,82 @@
+<?
+
+
+$sql = " FROM `" . PREFIX . "objects` $mySQLParams AND `parent_id` !='-1'";
+
+// echo $sql;
+
+	// Считаем общее кол-во объектов
+	$res = mysql_fetch_array(mysql_query("SELECT COUNT(*) AS counter $sql"));
+
+	// Если хоть что-то есть, выводим список
+	if($res && $res['counter']>0) {
+		
+		// Всего записей
+		$count = $Settings['count'] =$res['counter'];
+
+		// echo "count = $count";
+
+		// Считаем общее кол-во страниц
+		$totalpages = $Settings['totalpages'] = ceil($count/$Settings['itemsPerPage']);
+
+		// узнаем на какой странице находимся
+		if(empty($_GET['page'])) $Settings["pagina"] = $pagina = 0; else $pagina = $Settings["pagina"] = $_GET['page'];
+
+		// Выставление лимита кол-ва объектов на странице (так же исп-зуется для нумерации объ. на страницах)
+		$startlimit = $Settings['itemsPerPage']*$pagina;
+
+		// Первый объект на странице
+		$startobject = $Settings['startobject'] = $startlimit + 1;
+
+		// Последний объект на странице
+		$endobject = $Settings['endobject'] = $startobject + $Settings['itemsPerPage'] - 1;
+
+		// Если объектов меньше, чем разрешено на странице
+		if ($count <= $Settings['itemsPerPage']) $Settings['endobject'] = $count;
+		
+		// Исп. для последней страницы
+		if ($endobject > $count) $Settings['endobject'] = $count ;
+
+		// Формирование конечного запроса
+		$Settings['startlimit'] = $startlimit; 
+		// $sql .= " LIMIT $startlimit, $Settings[itemsPerPage]";
+
+		// echo $sql1;
+
+		// Собственно делаем выборку
+		// $qres = mysql_query("SELECT o.id, o.name, totalarea,price,metro,priceper,parent_id, object_id, path AS imageUrl $sql");
+
+echo "<p class='sorting'>Отображаются объекты с <B>$Settings[startobject]</B> по <B>$Settings[endobject]</B> из <B>$Settings[count]</B></p><div class='pages'>";
+
+$paging = $active = "";
+
+if (empty($_GET["parent_id"])) $url = "";
+else $url = "$_GET[parent_id]/";
+
+
+	if ($Settings['totalpages'] > 1) {
+
+		for($i = 0; $i < $Settings['totalpages']; $i++){
+			
+			$pagenumber = $i+1;
+
+			// echo "$pagenumber - $Settings[pagina]<br>";
+
+			if($i == $Settings["pagina"]) $active=" class='active'";
+			$paging .= "<a href='/catalogue/?page=$i&$endParams'$active>$pagenumber</a> "; 
+			
+			$active=""	;
+
+		}
+
+		echo "Страницы: " . $paging;
+
+	}
+
+
+}
+
+?>
+<!-- <span><a href="#">&gt;</a></span> -->
+</div>
+<div class="spacer"></div>

@@ -1,0 +1,239 @@
+<? 
+
+// Набор названий функций
+// GenerateListOfSomeThing("news"); 
+// isMenuActive("about"); 
+
+
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="ru" xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+	<title><? echo $page['title']; ?></title>
+	
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="ru" />
+
+	<meta name="Keywords"			content="<? echo $page['keywords']; ?>" >
+	<meta name="Description"		content="<? echo $page['description']; ?>" >
+	<meta name="robots" content="" />
+	<meta name="copyright" content="" />
+
+	<link rel="icon"			type="image/x-icon" href="/favicon.ico" />
+	<link rel="shortcut icon"	type="image/x-icon"	href="/favicon.ico" />
+	<link rel="stylesheet"		type="text/css"		href="/templates/css/style.css" />
+
+	<!--[if lte IE 6]>
+		<link type="text/css" rel="stylesheet" href="/templates/css/styleie.css" />
+		<script defer type="text/javascript" src="/templates/js/pngfix.js" mce_src="/templates/css/pngfix.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+
+
+
+	<table cellpadding="0" cellspacing="0" class="main">
+
+
+
+		<!-- Общая шапка и левое меню -->
+		<!-- Шапка -->
+		<tr>
+			<td class="leftHeader">
+
+				<!-- логотип и слоган -->
+				<div class="logo"><a href="/"><img src="/i/logo.jpg" alt="" title="" width="236" height="38" /></a><br />
+					<span class="slogan">аренда и продажа деловой недвижимости</span>
+				</div>
+				<!-- /логотип и слоган -->
+
+				<!-- меню -->
+				<ul class="menu">
+					<li><a href="/catalogue/">Каталог</a></li>
+					<li><a href="/news/">Новости</a></li>
+					<li><a href="/about/">О компании</a></li>
+					<li><a href="/contacts/">Контакты</a></li>
+				</ul>
+				<!-- /меню -->
+
+			</td>
+
+			<!-- Центральная картинка и статистика -->
+			<td>
+				<p class="statistic">
+					Склады: <span><? echo GetTotalData ("`objects` WHERE `parent_id` = '2'")?></span><!--  (+5)  --> | 
+					Офисы: <span><? echo GetTotalData ("`objects` WHERE `parent_id` = '1'")?></span> <!-- (+6) -->
+				</p>
+				<div class="rightHeader">
+					<p>8 (495) <span><? echo $Settings['phone']; ?></span></p>
+					<a href="/contacts/application/" class="order">Оставить заявку</a> <br class="spacer" />
+				</div>
+				<div class="spacer"></div>
+			</td>
+			<!-- /Центральная картинка и статистика -->
+
+		</tr>
+		<!-- /Шапка -->
+
+
+
+
+
+		<tr>
+		<!-- Левое блок -->
+		<td class="leftContent">
+			
+			<!-- Левое меню -->
+			<h2>СКЛАДЫ <a href="/catalogue/?parent_id=2"><img src="/i/spacer.gif" alt="" title="" /></a></h2>
+			<ul>
+				<li><a href="/catalogue/?parent_id=2&areaType=0">До 300 м&sup2;</a></li>
+				<li><a href="/catalogue/?parent_id=2&areaType=1">От 300 до 1000 м&sup2;</a></li>
+				<li><a href="/catalogue/?parent_id=2&areaType=2">Более 1000 м&sup2;</a></li>
+				<li><a href="/catalogue/?parent_id=2&objecttype=1">Складские комплексы</a></li>
+				<li><a href="/catalogue/?parent_id=2&commissionType=2">Склады без комиссии</a></li>
+				<li><a href="/catalogue/?parent_id=2&commissionType=1">Комиссия снижена</a></li>
+			</ul>
+			<h2>ОФИСЫ <a href="/catalogue/?parent_id=1"><img src="/i/spacer.gif" alt="" title="" /></a></h2>
+			<ul>
+				<li><a href="/catalogue/?parent_id=1&areaType=0">До 100 м&sup2;</a></li>
+				<li><a href="/catalogue/?parent_id=1&areaType=1">От 100 до 300 м&sup2;</a></li>
+				<li><a href="/catalogue/?parent_id=1&areaType=2">От 300 до 1000 м&sup2;</a></li>
+				<li><a href="/catalogue/?parent_id=1&areaType=3">Более 1000 м&sup2;</a></li>
+				<li><a href="/catalogue/?parent_id=1&objecttype=1">Бизнес-центры</a></li>
+				<li><a href="/catalogue/?parent_id=1&commissionType=2">Офисы без комиссии</a></li>
+				<li><a href="/catalogue/?parent_id=1&commissionType=1">Комиссия снижена</a></li>
+			</ul>
+			<!-- /Левое меню -->
+
+			<!-- Специальный анонс -->
+			<div class='announce'>
+				<? echo $Settings['specialAnnouncement']; ?>
+			</div>
+			<!-- Специальный анонс -->
+			
+			<!-- Баннеры -->
+			<div class="banners">
+				<? GenerateListOfSomeThing("advertisedObjects"); ?>
+			</div>
+			<!-- /Баннеры -->
+
+		</td>
+		<!-- /Левое меню -->
+
+
+
+		<!-- Контент -->
+		<td class="centerContent">
+
+			<!-- Текущий путь -->
+			<p class="location pl20px"><? GetCurrentPath("","1"); ?></p>
+			<!-- /Текущий путь -->
+			
+			<!-- Заголовок -->
+			<? if (!empty($page['h1'])) echo "<h1 class='pl20px'>$page[h1]</h1>"; ?>
+			<!-- /Заголовок -->
+
+		<!-- /Общая шапка, левое меню и начало контента-->
+
+
+
+		<!-- Генерация главной -->
+		<? if (isHomePage()) { ?>
+
+
+		<!-- Вывод списка последних объектов -->
+		<table cellpadding="0" cellspacing="0" class="lastObj">
+		<? GenerateObjectListForHomePage(); ?>
+		</table>
+		<!-- /Вывод списка последних объектов -->
+
+
+		<? } else { ?>
+		<!-- Генерация главной конец -->
+
+
+
+
+
+		<!-- Генерация внутренних страниц старт -->
+
+
+			<!-- Таблица используется для текстовых страниц начало -->
+			<? if (CATEGORY_URL_PATH != "catalogue") { ?>
+			<table class="container_4">
+				<tr>
+					<td class="container_11">
+			<? } ?>
+			<!-- Таблица используется для текстовых страниц начало -->
+
+				<!-- Доп шаблон для просмотра новостей -->
+				<? if (IsHomePage("news","view")) { ?>
+					<ul class="list_2"><li><?=convertSQLtimeV2($page['timestamp'])?></li></ul>
+				<? } ?>
+				<!-- /Доп шаблон для просмотра новостей -->
+			
+				<? ShowErrorMessage(); ?>
+
+				<!-- Вывод контента для страниц всех типов -->
+				<? eval('?>'.$page['content'].'<?'); ?>
+				<!-- Вывод контента для страниц всех типов -->
+
+				<!-- Доп шаблон для просмотра новостей -->
+				<? if (IsHomePage("news","view")) echo "</div>"; ?>
+				<!-- /Доп шаблон для просмотра новостей -->
+
+			<!-- Таблица используется для текстовых страниц конец -->
+			<? if (CATEGORY_URL_PATH != "catalogue") { ?>
+					</td>
+				</tr>
+			</table>
+			<? } ?>
+			<!-- Таблица используется для текстовых страниц конец -->
+
+		<? } ?>
+		<!-- Генерация внутренних страниц конец -->
+
+
+
+	<!-- Низ -->
+		</td>
+	</tr>
+
+	<!-- блок для низа -->
+	<tr>
+		<td colspan="3" class="forFooter">&nbsp;</td>
+	</tr>
+	<!-- /блок для низа -->
+
+</table>
+
+
+	<table cellpadding="0" cellspacing="0" id="footer">
+		<tr>
+			<td class="leftFooter"><p><? echo $Settings['sitename']; ?> &copy; 2010</p>
+				<a href="/contacts/drive/">Схема проезда</a>
+			</td>
+			<td class="centerFooter">
+				<a href="/">Главная</a>
+				<a href="/catalogue/">Каталог</a>
+				<a href="/news/">Новости</a>
+				<a href="/about/">О компании</a>
+				<a href="/contacts/application/">Оставить заявку</a>
+				<a href="/contacts/feedback/">Обратная связь</a>
+				<a href="/contacts/">Контакты</a><br />
+
+				<span>
+					<a href="http://8nog.com/">Создание сайтов Химки, Куркино, Зеленоград</a> - &nbsp; Студия <a href="http://8nog.com/">Восьминог</a>
+				</span>
+			</td>
+			<td class="rightFooter">
+				<? echo str_replace($AllowedChars,$ForbiddenChars,$Settings['counters']); ?>
+			</td>
+		</tr>
+	</table>
+	<!-- /Низ -->
+
+
+
+</body>
+</html>

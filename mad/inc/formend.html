@@ -1,0 +1,12 @@
+			<div class="sendrequest">
+				
+				<input type="submit"					value="<?php echo $ButtonNames[$_GET['action']]; ?>">
+				
+				<?php if (@$pagetemplate!="popup") { ?>
+					<input type="submit"	name="submit"	value="<?php echo $ButtonNames[$_GET['action']]; ?> <?php echo $translation['58'];?>">
+				<?php } ?>
+
+				
+				<input type="hidden"	name="action"	value="do_<?php echo strtolower($_GET['action']); ?>">
+				<?php GenerateInputTag("id","","hidden"); ?>
+			</div>
